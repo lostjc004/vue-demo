@@ -91,6 +91,17 @@
         </a>
       </li>
     </ul>
+    <ul>
+      <li>
+        <input type="text" v-model="axiosGet"> => 
+        <a
+          target="_blank"
+          @click="axiosGetMethod"
+        >
+          call axios(get) test
+        </a>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -99,12 +110,23 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      axiosGet: ''
     }
   },
   methods: {
     login () {
       this.$store.dispatch('user/login', {'username': 'admin', 'password': 'pass'})
+        .then(() => {
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
+    },
+
+    axiosGetMethod () {
+      this.$store.dispatch('user/axiosGet', {'getAddr': this.axiosGet})
         .then(() => {
           this.loading = false
         })

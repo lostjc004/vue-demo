@@ -1,4 +1,4 @@
-import { login } from '@/api/user'
+import { login, axiosGet } from '@/api/user'
 import { createNamespacedHelpers } from "vuex"
 import constant from '@/store/constant'
 
@@ -30,6 +30,21 @@ const actions = {
         setToken(response.token)
         resolve()
         console.log('login complete...')
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  axiosGet ({ commit }, payload) {
+    console.log('*axiosGet is Called!', payload)
+    const { getAddr } = payload
+    const params = new URLSearchParams()
+    params.append('getAddr', getAddr)
+
+    return new Promise((resolve, reject) => {
+      axiosGet(params).then(response => {
+        resolve()
       }).catch(error => {
         reject(error)
       })

@@ -12,3 +12,15 @@ export function login (data) {
     console.log('err_', err);
   })
 }
+
+export function axiosGet (data) {
+  console.log('*user api about axiosGet*', data.get('getAddr'))
+  // axios.get('http://vue.demo.server.com/was/authenticate', { title: 'TEST CODE' })
+  axios.get('/was/'+data.get('getAddr'))
+  .then(res => {
+    console.log('axiosGet res_', res);  
+  })
+  .catch(err => {
+    console.log('axiosGet err_', err);
+  })
+}
