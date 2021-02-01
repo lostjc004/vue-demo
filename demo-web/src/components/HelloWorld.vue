@@ -80,6 +80,17 @@
         </a>
       </li>
     </ul>
+    <h2>Axios TEST</h2>
+    <ul>
+      <li>
+        <a
+          target="_blank"
+          @click="login"
+        >
+          call authenticate
+        </a>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -89,6 +100,17 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  methods: {
+    login () {
+      this.$store.dispatch('user/login', {'username': 'admin', 'password': 'pass'})
+        .then(() => {
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
     }
   }
 }
