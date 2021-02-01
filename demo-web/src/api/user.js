@@ -14,7 +14,7 @@ export function login (data) {
 }
 
 export function axiosGet (data) {
-  console.log('*user api about axiosGet*', data.get('getAddr'))
+  console.log('*user api about axiosGet*')
   // axios.get('http://vue.demo.server.com/was/authenticate', { title: 'TEST CODE' })
   axios.get('/was/'+data.get('getAddr'))
   .then(res => {
@@ -22,5 +22,17 @@ export function axiosGet (data) {
   })
   .catch(err => {
     console.log('axiosGet err_', err);
+  })
+}
+
+export function axiosPost (data) {
+  console.log('*user api about axiosPost*')
+  // axios.get('http://vue.demo.server.com/was/authenticate', { title: 'TEST CODE' })
+  axios.post('/was/'+data.get('getAddr'))
+  .then(res => {
+    console.log('axiosPost res_', res);  
+  })
+  .catch(err => {
+    console.log('axiosPost err_', err);
   })
 }

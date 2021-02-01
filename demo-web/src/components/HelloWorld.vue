@@ -81,7 +81,7 @@
       </li>
     </ul>
     <h2>Axios TEST</h2>
-    <ul>
+    <!-- <ul>
       <li>
         <a
           target="_blank"
@@ -90,15 +90,26 @@
           call authenticate
         </a>
       </li>
+    </ul> -->
+    <ul>
+      <li>
+          http://vue.demo.server.com/was/
+          <input type="text" v-model="axiosGet">
+          <a
+          target="_blank"
+          @click="axiosGetMethod"
+          > => [GET]
+        </a>
+      </li>
     </ul>
     <ul>
       <li>
-        <input type="text" v-model="axiosGet"> => 
-        <a
+          http://vue.demo.server.com/was/
+          <input type="text" v-model="axiosPost">
+          <a
           target="_blank"
-          @click="axiosGetMethod"
-        >
-          call axios(get) test
+          @click="axiosPostMethod"
+          > => [POST]
         </a>
       </li>
     </ul>
@@ -111,7 +122,8 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      axiosGet: ''
+      axiosGet: '',
+      axiosPost: '',
     }
   },
   methods: {
@@ -127,6 +139,16 @@ export default {
 
     axiosGetMethod () {
       this.$store.dispatch('user/axiosGet', {'getAddr': this.axiosGet})
+        .then(() => {
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
+    },
+
+    axiosPostMethod () {
+      this.$store.dispatch('user/axiosPost', {'getAddr': this.axiosPost})
         .then(() => {
           this.loading = false
         })

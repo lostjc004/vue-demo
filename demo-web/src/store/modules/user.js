@@ -1,4 +1,4 @@
-import { login, axiosGet } from '@/api/user'
+import { login, axiosGet, axiosPost } from '@/api/user'
 import { createNamespacedHelpers } from "vuex"
 import constant from '@/store/constant'
 
@@ -44,6 +44,21 @@ const actions = {
 
     return new Promise((resolve, reject) => {
       axiosGet(params).then(response => {
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+
+  axiosPost ({ commit }, payload) {
+    console.log('*axiosPost is Called!', payload)
+    const { getAddr } = payload
+    const params = new URLSearchParams()
+    params.append('getAddr', getAddr)
+
+    return new Promise((resolve, reject) => {
+      axiosPost(params).then(response => {
         resolve()
       }).catch(error => {
         reject(error)
