@@ -3,6 +3,25 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const glob = require('glob')
+const distRootPath = '/'
+
+const getEntries = (root, prefix, ptn = '**/main.js') => {
+  // 하위폴더에서 main.js 파일을 모두 찾는다 
+  const files = glob.sync(`${root}/${ptn}`);
+
+  // 엔트리이름과 경로로 구성된 객체를 생성한다 
+  return files.reduce((entries, file) => {
+    const tokens = file.split('/');
+    const parentDirectory = tokens[tokens.length - 2];
+    // const bundleName = distRootPath + `${prefix}.${parentDirectory}`;
+    const bundleName = `${parentDirectory}`;
+    entries[bundleName] = file;
+    return entries;
+  }, {})
+}
+
+const entry = getEntries('./src/modules', 'vue')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -21,10 +40,12 @@ const createLintingRule = () => ({
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
-  entry: {
-    app: './src/main.js',
-    admin: './src/module/admin/admin.js'
-  },
+  entry: entry,
+  // entry: {
+  //   ...getEntries('./src/modules', 'vue'),
+  //   // app: './src/main.js',
+  //   // admin: './src/module/admin/admin.js'
+  // },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
